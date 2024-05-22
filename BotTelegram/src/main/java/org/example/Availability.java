@@ -11,10 +11,10 @@ public class Availability {
         HashMap<String, String> boxes = new HashMap<>();
 
         boxes.put("Зефир: Состав: зефирные цветы, завитки, мини розочки.\nЦена: от 800р.\n",
-                "https://github.com/RAISY-RR/TelegramBot/blob/main/BotTelegram/src/main/resources/photo/zefirka.jpg");
-        /*boxes.put("2", "Пастила: Состав: пастила(разных вкусов) и йогуртовая\n Цена: 350р.\n");
-        boxes.put("3", "Конфеты: Состав: конфеты (разных видов). Кол-во: 4, 8, 12. \n Цена: 250р, 400р, 550р.\n");
-        boxes.put("4", "Фрипсы: Состав: ассорти фрипсов(разных вкусов). 100гр. \n Цена: 450р.\n");*/
+                "https://username.github.io/cf194694324821a5eec6e0223a4473770e006758/BotTelegram/src/photo/zefirka.JPG");
+        boxes.put("Пастила: Состав: пастила(разных вкусов) и йогуртовая\nЦена: 350р.\n", "" );
+        boxes.put("Конфеты: Состав: конфеты (разных видов). Кол-во: 4, 8, 12. \n Цена: 250р, 400р, 550р.\n", "");
+        boxes.put("Фрипсы: Состав: ассорти фрипсов(разных вкусов). 100гр. \n Цена: 450р.\n", "");
 
         return boxes;
     }
