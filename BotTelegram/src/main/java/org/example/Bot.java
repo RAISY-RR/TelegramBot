@@ -18,8 +18,10 @@ import javax.swing.text.html.HTMLEditorKit;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
+import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 public class Bot extends TelegramLongPollingBot {
 
@@ -60,7 +62,13 @@ public class Bot extends TelegramLongPollingBot {
             } else if(txt.equals("/availableBoxes")){
 
                 sendText(id, "Наборы в коробках: \n");
-
+                for(Map.Entry<String, String> entry: availability.Boxes().entrySet()) {
+                    try {
+                        sendPhoto(chatId, entry.getValue(), entry.getKey());
+                    } catch (TelegramApiException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
         }
     }
@@ -93,7 +101,7 @@ public class Bot extends TelegramLongPollingBot {
 
         SendPhoto sendphoto = new SendPhoto();
         sendphoto.setChatId(chatId.toString());
-        sendphoto.setPhoto();
+        sendphoto.setPhoto(new InputFile(photo));
         sendphoto.setCaption(imageCaption);
 
         execute(sendphoto);

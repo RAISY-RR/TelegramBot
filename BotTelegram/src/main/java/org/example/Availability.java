@@ -7,12 +7,12 @@ import java.net.URL;
 import java.util.HashMap;
 
 public class Availability {
-    public static HashMap<String, String> Boxes() throws MalformedURLException {
+    public HashMap<String, String> Boxes(){
         HashMap<String, String> boxes = new HashMap<>();
 
         boxes.put("Зефир: Состав: зефирные цветы, завитки, мини розочки.\nЦена: от 800р.\n",
-                "C://Users/avane/Desktop/BotTelegram/src/main/java/zefirka.jpg");
-       /* boxes.put("2", "Пастила: Состав: пастила(разных вкусов) и йогуртовая\n Цена: 350р.\n");
+                "https://github.com/RAISY-RR/TelegramBot/blob/main/BotTelegram/src/main/resources/photo/zefirka.jpg");
+        /*boxes.put("2", "Пастила: Состав: пастила(разных вкусов) и йогуртовая\n Цена: 350р.\n");
         boxes.put("3", "Конфеты: Состав: конфеты (разных видов). Кол-во: 4, 8, 12. \n Цена: 250р, 400р, 550р.\n");
         boxes.put("4", "Фрипсы: Состав: ассорти фрипсов(разных вкусов). 100гр. \n Цена: 450р.\n");*/
 
