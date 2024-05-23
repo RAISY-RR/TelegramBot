@@ -50,7 +50,7 @@ public class Bot extends TelegramLongPollingBot {
 
 
         if(msg.isCommand()){
-            if(txt.equals("/start")) {
+            if (txt.equals("/start")) {
                 sendText(id, "Я Бот который уточняет кол-во продукции в наличии и их состав.\n" +
                         "\n" +
                         "Команды для управления мной:\n" +
@@ -69,6 +69,9 @@ public class Bot extends TelegramLongPollingBot {
                         throw new RuntimeException(e);
                     }
                 }
+            } else if(txt.equals("/pastille")){
+                String l = availability.Pastille().get("1");
+                sendText(id, l);
             }
         }
     }
