@@ -1,33 +1,17 @@
 package org.example;
 
-
-
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
-
-import org.telegram.telegrambots.meta.api.objects.File;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-
-
-import javax.lang.model.util.Elements;
-import javax.swing.text.html.HTMLEditorKit;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.Reader;
-import java.net.URL;
-import java.util.Comparator;
-import java.util.List;
 import java.util.Map;
 
 public class Bot extends TelegramLongPollingBot {
 
     private boolean screaming = false;
     Availability availability = new Availability();
-
 
 
     @Override
@@ -46,11 +30,10 @@ public class Bot extends TelegramLongPollingBot {
         var user = msg.getFrom();
         var id = user.getId();
         Long chatId = update.getMessage().getChatId();
-        var txt = msg.getText();
+        
 
-
-        if(msg.isCommand()){
-            if (txt.equals("/start")) {
+        switch (msg.getText()){
+            case "/start":
                 sendText(id, "Я Бот который уточняет кол-во продукции в наличии и их состав.\n" +
                         "\n" +
                         "Команды для управления мной:\n" +
@@ -59,8 +42,8 @@ public class Bot extends TelegramLongPollingBot {
                         "/fruitFrips - фрипсы (по наличию).\n" +
                         "/zefir - виды, фкусы зефира (по наличию).\n " +
                         "\nДля оформления заказа пишите @Elina_Avanesova");
-            } else if(txt.equals("/availableBoxes")){
-
+                break;
+            case "/availableBoxes":
                 sendText(id, "Наборы в коробках: \n");
                 for(Map.Entry<String, String> entry: availability.Boxes().entrySet()) {
                     try {
@@ -69,14 +52,27 @@ public class Bot extends TelegramLongPollingBot {
                         throw new RuntimeException(e);
                     }
                 }
-            } else if(txt.equals("/pastille")){
+                break;
+            case "/pastille":
                 String l = availability.Pastille().get("1");
                 sendText(id, l);
+                break;
+            case "/fruitFrips":
+                String d = availability.FruitFrips().get("1");
+                sendText(id, d);
+                break;
+            case"/zefir":
+                String k = availability.Zefir().get("1");
+                sendText(id, k);
+                break;
+            default:
+                sendText(id, "Неправильно введена команда, повторите ввод!(/start)");
+                break;
             }
         }
-    }
 
-    // Ввыводит текст
+
+    // outputs text
     public void sendText(Long who, String str){
         SendMessage sendMessage = SendMessage.builder().
                 chatId(who.toString()).text(str).build();
@@ -87,26 +83,14 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-    // создает и выводит меню
-    public void sendMenu(Long who, String str, InlineKeyboardMarkup kb){
-        SendMessage sendMessage = SendMessage.builder().chatId(who.toString())
-                .parseMode("HTML").text(str)
-                .replyMarkup(kb).build();
-
-        try {
-            execute(sendMessage);
-        } catch (TelegramApiException e){
-            throw new RuntimeException(e);
-        }
-    }
-
+    //method output photo in bot
     public void sendPhoto(Long chatId, String photo, String imageCaption) throws TelegramApiException{
-
         SendPhoto sendphoto = new SendPhoto();
         sendphoto.setChatId(chatId.toString());
         sendphoto.setPhoto(new InputFile(photo));
         sendphoto.setCaption(imageCaption);
-
         execute(sendphoto);
     }
+
+
 }
